@@ -63,43 +63,44 @@ exports.createUser = function (req, res) {
 };
 
 exports.edit = function (req, res) {
-  Person.findById(req.params.id, function (err, person) {
+  User.findById(req.params.id, function (err, user) {
     if (err) return console.error(err);
-    res.render('edit', {
-      title: 'Edit Person',
-      person: person
+    res.render('update', {
+      title: 'Update Information',
+      person: user
     });
   });
 };
 
 exports.editPerson = function (req, res) {
-  Person.findById(req.params.id, function (err, person) {
+  User.findById(req.params.id, function (err, user) {
     if (err) return console.error(err);
-    person.name = req.body.name;
-    person.age = req.body.age;
-    person.species = req.body.species;
+    user.userName = req.body.userName;
+    user.age = req.body.age;
+    user.answer1 = req.body.answer1;
+    user.answer2 = req.body.answer2;
+    user.answer3 = req.body.answer3;
     person.save(function (err, person) {
       if (err) return console.error(err);
-      console.log(req.body.name + ' updated');
+      console.log(req.body.userName + ' updated');
     });
   });
   res.redirect('/');
-
 };
 
 exports.delete = function (req, res) {
-  Person.findByIdAndRemove(req.params.id, function (err, person) {
+  User.findByIdAndRemove(req.params.id, function (err, user) {
     if (err) return console.error(err);
     res.redirect('/');
   });
 };
 
 exports.details = function (req, res) {
-  Person.findById(req.params.id, function (err, person) {
+  User.findById(req.params.id, function (err, user) {
     if (err) return console.error(err);
     res.render('details', {
-      title: person.name + "'s Details",
-      person: person
+      title: user.userName + "'s Details",
+      user: user
     });
   });
 };
