@@ -22,6 +22,12 @@ var userSchema = mongoose.Schema({
 
 var User = mongoose.model('User_Collection', userSchema);
 
+exports.index = function(req, res) {
+  res.render('index', {
+    title: "Welcome!"
+  });
+}
+
 exports.manage = function (req, res) {
   User.find(function (err, user) {
     if (err) return console.error(err);
