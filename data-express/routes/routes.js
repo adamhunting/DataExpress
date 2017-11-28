@@ -9,7 +9,7 @@ mdb.once('open', function (callback) {
 });
 
 var userSchema = mongoose.Schema({
-  userName: {type: String, unique: true, required: true, dropDups: true},
+  userName: {type: String, unique: true, required: true},
   password: {type: String, required: true},
   userLevel: {type: String, required: true},
   email: {type: String, required: true},
