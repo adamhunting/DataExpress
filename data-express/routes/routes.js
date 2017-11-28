@@ -25,7 +25,7 @@ var User = mongoose.model('User_Collection', userSchema);
 exports.manage = function (req, res) {
   User.find(function (err, user) {
     if (err) return console.error(err);
-    res.render('index', {
+    res.render('manage', {
       title: 'People List',
       people: user
     });
