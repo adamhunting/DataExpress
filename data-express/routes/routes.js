@@ -40,19 +40,24 @@ exports.manage = function (req, res) {
 
 exports.create = function (req, res) {
   res.render('create', {
-      title: 'Add Person'
+      title: 'Sign Up'
   });
 };
 
-exports.createPerson = function (req, res) {
-  var person = new Person({
-    name: req.body.name,
+exports.createUser = function (req, res) {
+  var user = new User({
+    userName: req.body.userName,
+    password: req.body.password,
+    userLevel: req.body.userLevel,
+    email: req.body.email,
     age: req.body.age,
-    species: req.body.species
+    answer1: req.body.answer1,
+    answer2: req.body.answer2,
+    answer3: req.body.answer3
   });
-  person.save(function (err, person) {
+  user.save(function (err, user) {
     if (err) return console.error(err);
-    console.log(req.body.name + ' added');
+    console.log(req.body.userName + ' added');
   });
   res.redirect('/');
 };
