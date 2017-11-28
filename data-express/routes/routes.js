@@ -9,15 +9,16 @@ mdb.once('open', function (callback) {
 });
 
 var userSchema = mongoose.Schema({
-  userName: String,
-  password: String,
-  userLevel: String,
-  email: String,
-  age: String,
-  answer1: String,
-  answer2: String,
-  answer3: String
+  userName: {type: String, unique: true, required: true, dropDups: true},
+  password: {type: String, required: true},
+  userLevel: {type: String, required: true},
+  email: {type: String, required: true},
+  age: {type: String, required: true},
+  answer1: {type: String, required: true},
+  answer2: {type: String, required: true},
+  answer3: {type: String, required: true}
 });
+userSchema.index()
 
 
 var User = mongoose.model('User_Collection', userSchema);
