@@ -67,7 +67,7 @@ exports.edit = function (req, res) {
     if (err) return console.error(err);
     res.render('update', {
       title: 'Update Information',
-      person: user
+      user: user
     });
   });
 };
@@ -80,7 +80,7 @@ exports.editPerson = function (req, res) {
     user.answer1 = req.body.answer1;
     user.answer2 = req.body.answer2;
     user.answer3 = req.body.answer3;
-    person.save(function (err, person) {
+    user.save(function (err, user) {
       if (err) return console.error(err);
       console.log(req.body.userName + ' updated');
     });
