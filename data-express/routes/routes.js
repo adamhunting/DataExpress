@@ -18,8 +18,6 @@ var userSchema = mongoose.Schema({
   answer2: {type: String, required: true},
   answer3: {type: String, required: true}
 });
-userSchema.index()
-
 
 var User = mongoose.model('User_Collection', userSchema);
 
