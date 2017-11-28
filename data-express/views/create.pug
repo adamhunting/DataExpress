@@ -1,0 +1,40 @@
+extends layout
+
+block content
+   form(id='form', method='post', action='/create')
+    label(for='userName') User Name: 
+    input(type='text', name='userName')
+    br
+    label(for='password') Password: 
+    input(type='text', name='password')
+    br
+    label(for='userLevel') User Level:
+    select(name='userLevel')
+      option(value="Admin") Admin
+      option(value="User") User
+    br
+    label(for='email') Email: 
+    input(type='text', name='email')
+    br
+    label(for='age') Age: 
+    input(type='text', name='age')
+    br     
+    label(for='answer1') Answer One:
+    select(name='answer1')
+      option(value="Zombie") Zombie
+      option(value="Vampire") Vampire
+      option(value="Werewolf") Werewolf      
+    br
+    label(for='answer2') Answer Two:
+    select(name='answer2')
+      option(value="Zombie") Zombie
+      option(value="Vampire") Vampire
+      option(value="Werewolf") Werewolf      
+    br
+    label(for='answer3') Answer Three:
+    select(name='answer3')      
+      option(value="Zombie") Zombie
+      option(value="Vampire") Vampire
+      option(value="Werewolf") Werewolf      
+    br
+    input(type='submit', value='Add User')
