@@ -20,16 +20,16 @@ var userSchema = mongoose.Schema({
   });
   
   
-  var Person = mongoose.model('User_Collection', userSchema);
+  var User = mongoose.model('User_Collection', userSchema);
   
   
   
   exports.manage = function (req, res) {
-    Person.find(function (err, person) {
+    User.find(function (err, user) {
       if (err) return console.error(err);
       res.render('index', {
         title: 'People List',
-        people: person
+        people: user
       });
     });
   };
