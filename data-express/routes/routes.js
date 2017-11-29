@@ -1,4 +1,6 @@
 var mongoose = require('mongoose');
+var bcrypt = require('bcrypt-nodejs');
+var salt = bcrypt.genSaltSync(8);
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/data');
 
@@ -34,7 +36,17 @@ exports.login = function(req, res) {
 }
 
 exports.loginUser = function(req, res) {
-  
+  User.find(function (err, guest) {
+    if(err) return console.error(err);
+    else if(guest) {
+      bcrypt.compare(req.body.password, user.password, function(err, user) {
+        if(err) return console.error(err);
+        else if(user) {
+          redirect('/');
+        }
+      });
+    }
+  });
 }
 
 exports.manage = function (req, res) {
@@ -54,9 +66,10 @@ exports.create = function (req, res) {
 };
 
 exports.createUser = function (req, res) {
+  var hash = bcrypt.hashSync(req.body.password, salt);
   var user = new User({
     userName: req.body.userName,
-    password: req.body.password,
+    password: hash,
     userLevel: req.body.userLevel,
     email: req.body.email,
     age: req.body.age,
@@ -86,6 +99,8 @@ exports.updateUser = function (req, res) {
     if (err) return console.error(err);
     user.userName = req.body.userName;
     user.age = req.body.age;
+    userLevel: req.body.userLevel;
+    email: req.body.email;
     user.answer1 = req.body.answer1;
     user.answer2 = req.body.answer2;
     user.answer3 = req.body.answer3;

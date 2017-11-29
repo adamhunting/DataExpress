@@ -3,10 +3,10 @@ extends layout
 block content
   form(name="myForm")
     div
-      input(type="text" id="username" class="inputBox" autocapitalize="off" autocomplete="off"
+      input(type="text" name="userName" id="username" class="inputBox" autocapitalize="off" autocomplete="off"
       autocorrect="off" required="required" placeholder="Username" aria-label="Username")
     div
-      input(type="password" id="password" class="inputBox" autocapitalize="off" autocomplete="off" 
+      input(type="password" name="password" id="password" class="inputBox" autocapitalize="off" autocomplete="off" 
       autocorrect="off" required="required" placeholder="Password" aria-label="Password")
     div(class="space")
     input(type="submit" value="Sign In")
