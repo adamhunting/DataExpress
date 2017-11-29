@@ -27,6 +27,16 @@ exports.index = function(req, res) {
   });
 }
 
+exports.login = function(req, res) {
+  res.render('login', {
+    title: "Login"
+  });
+}
+
+exports.loginUser = function(req, res) {
+  
+}
+
 exports.manage = function (req, res) {
   User.find(function (err, user) {
     if (err) return console.error(err);
