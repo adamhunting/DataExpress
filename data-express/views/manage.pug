@@ -2,26 +2,26 @@ extends layout
 
 block content
     table(class='gridtable')
-    tr
-      th User Name
-      th Password
-      th User Level
-      th Email
-      th Age
-      th Answer One
-      th Answer Two
-      th Answer Three
-      th
-    each item in people
       tr
-        td 
-          a(href='/details/' + item.id) #{item.userName}
-        td #{item.password}
-        td #{item.userLevel}
-        td #{item.email}
-        td #{item.age}
-        td #{item.answer1}
-        td #{item.answer2}
-        td #{item.answer3}
-        td
-          a(href='/delete/' + item.id) Delete
+        th User Name
+        th Password
+        th User Level
+        th Email
+        th Age
+        th Answer One
+        th Answer Two
+        th Answer Three
+        th
+      each item in people
+        tr
+          td 
+            a(href='/details/' + item.id) #{item.userName}
+          td #{item.password}
+          td #{item.userLevel}
+          td #{item.email}
+          td #{item.age}
+          td #{item.answer1}
+          td #{item.answer2}
+          td #{item.answer3}
+          td
+            a(href='/delete/' + item.id) Delete

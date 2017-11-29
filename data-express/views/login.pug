@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  form(name="myForm")
+  form(name="myForm", method='post', action='/login')
     div
       input(type="text" name="userName" id="username" class="inputBox" autocapitalize="off" autocomplete="off"
       autocorrect="off" required="required" placeholder="Username" aria-label="Username")

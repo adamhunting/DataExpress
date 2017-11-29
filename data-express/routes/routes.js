@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
-var salt = bcrypt.genSaltSync(8);
+var salt = bcrypt.genSaltSync(10);
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/data');
 
@@ -30,22 +30,26 @@ exports.index = function(req, res) {
 }
 
 exports.login = function(req, res) {
-  res.render('login', {
-    title: "Login"
-  });
+  User.find(function(err, guest) {
+    res.render('login', {
+      title: "Login",
+      guests: guest
+    });
+  })
 }
 
 exports.loginUser = function(req, res) {
-  User.find(function (err, guest) {
-    if(err) return console.error(err);
-    else if(guest) {
-      bcrypt.compare(req.body.password, user.password, function(err, user) {
-        if(err) return console.error(err);
-        else if(user) {
-          redirect('/');
+  console.log("logging in");
+  User.findOne({userName: req.body.userName}, function(err, guest) {
+    if(guest) {
+      bcrypt.compare(req.body.password, guest.password, function(err, user) {
+        if(user) {
+          res.redirect('/');
         }
+        else return console.error(err);
       });
     }
+    else return console.error(err);
   });
 }
 
