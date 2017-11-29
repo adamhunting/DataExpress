@@ -1,1 +1,1 @@
-"C:\Program Files\MongoDB\Server\3.4\bin\mongod" --dbpath "C:\Users\BlazingHoundoom\Desktop\JavaScript\data-express\data-express\data"
+"C:\Program Files\MongoDB\Server\3.4\bin\mongod" --dbpath "C:\Users\John\Documents\GitHub\DataExpress\data-express\data"

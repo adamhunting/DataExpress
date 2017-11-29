@@ -20,10 +20,10 @@ var urlencodedParser = bodyParser.urlencoded({
 
 app.get('/', route.index);
 app.get('/create', route.create);
-app.get('/edit/:id', route.edit);
+app.get('/update/:id', route.update);
 app.get('/details/:id', route.details);
-app.post('/create', urlencodedParser, route.createPerson);
-app.post('/edit/:id', urlencodedParser, route.editPerson);
+app.post('/create', urlencodedParser, route.createUser);
+app.post('/update/:id', urlencodedParser, route.updateUser);
 app.get('/delete/:id', route.delete);
 
 app.listen(3000);

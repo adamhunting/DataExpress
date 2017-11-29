@@ -31,7 +31,7 @@ exports.manage = function (req, res) {
   User.find(function (err, user) {
     if (err) return console.error(err);
     res.render('manage', {
-      title: 'People List',
+      title: 'User List',
       people: user
     });
   });
@@ -61,7 +61,7 @@ exports.createUser = function (req, res) {
   res.redirect('/');
 };
 
-exports.edit = function (req, res) {
+exports.update = function (req, res) {
   User.findById(req.params.id, function (err, user) {
     if (err) return console.error(err);
     res.render('update', {
@@ -71,7 +71,7 @@ exports.edit = function (req, res) {
   });
 };
 
-exports.editPerson = function (req, res) {
+exports.updateUser = function (req, res) {
   User.findById(req.params.id, function (err, user) {
     if (err) return console.error(err);
     user.userName = req.body.userName;
