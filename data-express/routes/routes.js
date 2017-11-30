@@ -25,7 +25,8 @@ var User = mongoose.model('User_Collection', userSchema);
 
 exports.index = function(req, res) {
   res.render('index', {
-    title: "Welcome!"
+    title: "Welcome!",
+    User: User
   });
 }
 

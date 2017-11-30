@@ -2,6 +2,18 @@ extends layout
 
 block content
   canvas(name='myCanvas', width='500', height='300', style='border:1px solid #000; background-color: #eee')
+  - var q1_a1 = 0;
+  - var q1_a2 = 0;
+  - var q1_a3 = 0;
+  each user in User
+    -
+      if(user.answer1 == 'Zombie') q1_a1++;
+      if(user.answer1 == 'Vampire') q1_a2++;
+      if(user.answer1 == 'Werewolf') q1_a3++;
+  script var q1_a1 = #{q1_a1}
+  script var q1_a2 = #{q1_a2}
+  script var q1_a3 = #{q1_a3}
+  script(src='./routes/drawGraph.js')
   p
     a(href='/login') Login
   p
