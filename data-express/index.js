@@ -46,14 +46,14 @@ app.get('/delete/:id', route.delete);
 
 
 //Logout 
-//app.get('/logout', function(req,res){
-//  req.session.destroy(function(err){
-//    if(err){
-//      console.log(err);
-//    }else{
-//     res.redirect('/')
-//    }
-//  })
-//});
+app.get('/logout', function(req,res){
+  req.session.destroy(function(err){
+    if(err){
+      console.log(err);
+    }else{
+     res.redirect('/')
+    }
+  })
+});
 
 app.listen(3000);
