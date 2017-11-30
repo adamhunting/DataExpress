@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  p Hello World
-    script(src='/routes/barGraph.js')
+  canvas(name='myCanvas', width='500', height='300', style='border:1px solid #000; background-color: #eee')
   p
     a(href='/login') Login
+        
