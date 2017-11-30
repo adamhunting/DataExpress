@@ -9,6 +9,14 @@ bodyParser = require('body-parser');
 
 var app = express();
 
+var checkAuth = function(req, res, next){
+  if(req.session.user && req.session.user.isAuthenticated){
+    next();
+  }else{
+    res.redirect('/');
+  }
+}
+
 app.set('view engine', 'pug');
 app.set('views', __dirname + '/views');
 
@@ -33,5 +41,16 @@ app.post('/login', urlencodedParser, route.loginUser);
 app.post('/create', urlencodedParser, route.createUser);
 app.post('/update/:id', urlencodedParser, route.updateUser);
 app.get('/delete/:id', route.delete);
+
+//Logout 
+app.get('/logout', function(req,res){
+  req.session.destroy(function(err){
+    if(err){
+      console.log(err);
+    }else{
+     res.redirect('/')
+    }
+  })
+});
 
 app.listen(3000);
