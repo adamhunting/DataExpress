@@ -10,9 +10,12 @@ bodyParser = require('body-parser');
 var app = express();
 
 var checkAuth = function(req, res, next){
+  console.log("Checking Auth");
   if(req.session.user && req.session.user.isAuthenticated){
+    console.log("Auth Cleared");
     next();
   }else{
+    console.log("Auth Failed");
     res.redirect('/');
   }
 }
@@ -33,24 +36,14 @@ var urlencodedParser = bodyParser.urlencoded({
 
 app.get('/', route.index);
 app.get('/login', route.login);
-app.get('/manage', route.manage);
+app.get('/manage', checkAuth, route.manage);
 app.get('/create', route.create);
 app.get('/update/:id', route.update);
-app.get('/details/:id', route.details);
+app.get('/details/:id', checkAuth, route.details);
 app.post('/login', urlencodedParser, route.loginUser);
 app.post('/create', urlencodedParser, route.createUser);
 app.post('/update/:id', urlencodedParser, route.updateUser);
 app.get('/delete/:id', route.delete);
-
-//Logout 
-app.get('/logout', function(req,res){
-  req.session.destroy(function(err){
-    if(err){
-      console.log(err);
-    }else{
-     res.redirect('/')
-    }
-  })
-});
+app.get('/logout', route.logout);
 
 app.listen(3000);

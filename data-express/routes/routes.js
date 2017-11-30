@@ -37,13 +37,24 @@ exports.login = function(req, res) {
   })
 }
 
+exports.logout = function(req, res) {
+  req.session.destroy(function(err){
+    if(err){
+      console.log(err);
+    }else{
+     res.redirect('/')
+    }
+  });
+}
+
 exports.loginUser = function(req, res) {
   User.findOne({userName: req.body.userName}, function(err, guest) {
     if(guest) {
       bcrypt.compare(req.body.password, guest.password, function(err, user) {
         if(user) {
-          req.session.name = user.userLevel;
-          console.log(req.session.name);
+          if(user.userLevel == "Admin") {
+            req.session.user = {isAuthenticated: true, user: user.userName};
+          }
           res.redirect('/');
         }
         else return console.error(err);
@@ -54,7 +65,6 @@ exports.loginUser = function(req, res) {
 }
 
 exports.manage = function (req, res) {
-  //if(req.session.name === "Admin") {
     User.find(function (err, user) {
       if (err) return console.error(err);
       res.render('manage', {
@@ -62,10 +72,6 @@ exports.manage = function (req, res) {
         people: user
       });
     });
-  //}
- // else {
-  //  res.redirect('/');
-  //}
 };
 
 exports.create = function (req, res) {
