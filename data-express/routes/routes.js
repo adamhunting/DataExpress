@@ -32,18 +32,18 @@ exports.index = function(req, res) {
 exports.login = function(req, res) {
   User.find(function(err, guest) {
     res.render('login', {
-      title: "Login",
-      guests: guest
+      title: "Login"
     });
   })
 }
 
 exports.loginUser = function(req, res) {
-  console.log("logging in");
   User.findOne({userName: req.body.userName}, function(err, guest) {
     if(guest) {
       bcrypt.compare(req.body.password, guest.password, function(err, user) {
         if(user) {
+          req.session.name = user.userLevel;
+          console.log(req.session.name);
           res.redirect('/');
         }
         else return console.error(err);
@@ -54,13 +54,18 @@ exports.loginUser = function(req, res) {
 }
 
 exports.manage = function (req, res) {
-  User.find(function (err, user) {
-    if (err) return console.error(err);
-    res.render('manage', {
-      title: 'User List',
-      people: user
+  //if(req.session.name === "Admin") {
+    User.find(function (err, user) {
+      if (err) return console.error(err);
+      res.render('manage', {
+        title: 'User List',
+        people: user
+      });
     });
-  });
+  //}
+ // else {
+  //  res.redirect('/');
+  //}
 };
 
 exports.create = function (req, res) {
@@ -124,11 +129,15 @@ exports.delete = function (req, res) {
 };
 
 exports.details = function (req, res) {
-  User.findById(req.params.id, function (err, user) {
-    if (err) return console.error(err);
-    res.render('details', {
-      title: user.userName + "'s Details",
-      user: user
+  if(req.session.name === "Admin") {
+    User.findById(req.params.id, function (err, user) {
+      if (err) return console.error(err);
+      res.render('details', {
+        title: user.userName + "'s Details",
+        user: user
+      });
     });
-  });
+  } else {
+    res.redirect('/');
+  }
 };

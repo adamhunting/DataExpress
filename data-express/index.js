@@ -13,6 +13,12 @@ app.set('view engine', 'pug');
 app.set('views', __dirname + '/views');
 
 app.use(express.static(path.join(__dirname + '/public')));
+app.use(cookieParser());
+app.use(expressSession({
+    secret: 'KMS',
+    saveUninitialized: true,
+    resave: true
+}));
 
 var urlencodedParser = bodyParser.urlencoded({
   extended: true
