@@ -1,13 +1,14 @@
 extends layout
 
 block content
-  p User Name: #{User.userName}
-  p Password: #{User.password}
-  p User Level: #{User.userLevel}
-  p Email: #{User.email}
-  P Age: #{User.age}
-  P Answer 1: #{User.answer1}
-  p Answer 2: #{User.answer2}
-  p Answer 3: #{User.answer3}
+  p User Name: #{user.userName}
+  p Password: #{user.password}
+  p User Level: #{user.userLevel}
+  p Email: #{user.email}
+  P Age: #{user.age}
+  P Answer 1: #{user.answer1}
+  p Answer 2: #{user.answer2}
+  p Answer 3: #{user.answer3}
   br
-  a(href='/') Back
+  p
+    a(href='/') Back
