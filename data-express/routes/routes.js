@@ -1,14 +1,13 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
+var expressSession = require('express-session');
 var salt = bcrypt.genSaltSync(10);
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/data');
 
 var mdb = mongoose.connection;
 mdb.on('error', console.error.bind(console, 'connection error:'));
-mdb.once('open', function (callback) {
-
-});
+mdb.once('open', function (callback) {});
 
 var userSchema = mongoose.Schema({
   userName: {type: String, unique: true, required: true},
@@ -48,15 +47,26 @@ exports.logout = function(req, res) {
   });
 }
 
+exports.checkAuth = function(req, res, next){
+  if(req.session.user && req.session.user.isAuthenticated){
+    next();
+  }else{
+    res.redirect('/');
+  }
+}
+
 exports.loginUser = function(req, res) {
   User.findOne({userName: req.body.userName}, function(err, guest) {
     if(guest) {
-      bcrypt.compare(req.body.password, guest.password, function(err, user) {
-        if(user) {
-          if(user.userLevel == "Admin") {
-            req.session.user = {isAuthenticated: true, user: user.userName};
+      bcrypt.compare(req.body.password, guest.password, function(err, result) {
+        if(result) {
+          if(guest.userLevel == "Admin") {
+            req.session.user = {isAuthenticated: true, user: guest.userName};
+            res.redirect('/manage');
+          } else {
+            req.session.user = {isAuthenticated: false, user: guest.userName};
+            res.redirect('/');
           }
-          res.redirect('/');
         }
         else return console.error(err);
       });
@@ -66,18 +76,13 @@ exports.loginUser = function(req, res) {
 }
 
 exports.manage = function (req, res) {
-  //if(req.session.name === "Admin") {
-    User.find(function (err, user) {
-      if (err) return console.error(err);
-      res.render('manage', {
-        title: 'User List',
-        people: user
-      });
+  User.find(function (err, user) {
+    if (err) return console.error(err);
+    res.render('manage', {
+      title: 'User List',
+      people: user
     });
-  //}
- // else {
-  //  res.redirect('/');
-  //}
+  });
 };
 
 exports.create = function (req, res) {
@@ -100,7 +105,6 @@ exports.createUser = function (req, res) {
   });
   user.save(function (err, user) {
     if (err) return console.error(err);
-    console.log(req.body.userName + ' added');
   });
   res.redirect('/');
 };
@@ -136,20 +140,16 @@ exports.updateUser = function (req, res) {
 exports.delete = function (req, res) {
   User.findByIdAndRemove(req.params.id, function (err, user) {
     if (err) return console.error(err);
-    res.redirect('/');
+    res.redirect('/manage');
   });
 };
 
 exports.details = function (req, res) {
-  if(req.session.name === "Admin") {
-    User.findById(req.params.id, function (err, user) {
-      if (err) return console.error(err);
-      res.render('details', {
-        title: user.userName + "'s Details",
-        user: user
-      });
+  User.findById(req.params.id, function (err, user) {
+    if (err) return console.error(err);
+    res.render('details', {
+      title: user.userName + "'s Details",
+      user: user
     });
-  } else {
-    res.redirect('/');
-  }
+  });
 };
