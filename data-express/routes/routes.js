@@ -65,7 +65,7 @@ exports.loginUser = function(req, res) {
             res.redirect('/manage');
           } else {
             req.session.user = {isAuthenticated: false, user: guest.userName};
-            res.redirect('/');
+            res.redirect('/update/' + guest.id);
           }
         }
         else return console.error(err);

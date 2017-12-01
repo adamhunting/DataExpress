@@ -1,42 +1,30 @@
 extends layout
 
 block content
-  form(id='form', method='post', action='/edit/' + User.id)
-    label(for='userName') User Name: 
-    input(type='text', name='userName' value=User.userName)
-  br
-  label(for='password') Password: 
-  input(type='text', name='password' value=User.password)
-  br
-  label(for='userLevel') User Level:
-  select(name='userLevel')
-    option(selected = User.userLevel) #{User.userLevel}
-    option(value="Admin") Admin
-    option(value="User") User
-  br
+  form(id='form', method='post', action='/edit/' + user.id)
   label(for='email') Email: 
-  input(type='text', name='email' value=User.email)
+  input(type='text', name='email' value=user.email)
   br
   label(for='age') Age: 
-  input(type='text', name='age' value=User.age)
+  input(type='text', name='age' value=user.age)
   br     
   label(for='answer1') Answer One:
   select(name='answer1')
-    option(selected = User.answer1) #{User.answer1}
+    option(selected = user.answer1) #{user.answer1}
     option(value="Zombie") Zombie
     option(value="Vampire") Vampire
     option(value="Werewolf") Werewolf      
   br
   label(for='answer2') Answer Two:
   select(name='answer2')
-    option(selected = User.answer2) #{User.answer2}
+    option(selected = user.answer2) #{user.answer2}
     option(value="Zombie") Zombie
     option(value="Vampire") Vampire
     option(value="Werewolf") Werewolf      
   br
   label(for='answer3') Answer Three:
   select(name='answer3')
-    option(selected = User.answer3) #{User.answer3}
+    option(selected = user.answer3) #{user.answer3}
     option(value="Zombie") Zombie
     option(value="Vampire") Vampire
     option(value="Werewolf") Werewolf      
