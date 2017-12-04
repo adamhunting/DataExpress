@@ -11,9 +11,9 @@ block content
   label(for='answer1') Answer One:
   select(name='answer1')
     option(selected = user.answer1) #{user.answer1}
-    option(value="1") ONE
-    option(value="2") TWO
-    option(value="3") THREE      
+    option(value="1") 1
+    option(value="2") 2
+    option(value="3") 3      
   br
   label(for='answer2') Answer Two:
   select(name='answer2')
@@ -30,3 +30,6 @@ block content
     option(value="Werewolf") Werewolf      
   br
   input(type='submit', value='Update User')
+  br
+  p
+    a(href='/logout') Log Out
