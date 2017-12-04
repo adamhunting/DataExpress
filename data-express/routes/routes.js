@@ -124,10 +124,8 @@ exports.update = function (req, res) {
 exports.updateUser = function (req, res) {
   User.findById(req.params.id, function (err, user) {
     if (err) return console.error(err);
-    user.userName = req.body.userName;
     user.age = req.body.age;
-    userLevel: req.body.userLevel;
-    email: req.body.email;
+    user.email = req.body.email;
     user.answer1 = req.body.answer1;
     user.answer2 = req.body.answer2;
     user.answer3 = req.body.answer3;
