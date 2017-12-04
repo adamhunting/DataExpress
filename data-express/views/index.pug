@@ -1,21 +1,46 @@
 extends layout
 
 block content
-  canvas(name='myCanvas', width='500', height='300', style='border:1px solid #000; background-color: #eee')
   - var q1_a1 = 0;
   - var q1_a2 = 0;
   - var q1_a3 = 0;
-  each user in User
+  - var q2_a1 = 0;
+  - var q2_a2 = 0;
+  - var q2_a3 = 0;
+  - var q3_a1 = 0;
+  - var q3_a2 = 0;
+  - var q3_a3 = 0;
+  - var userCount = 0;
+  
+  each user in person
+    -
       if(user.answer1 == 'Zombie') q1_a1++;
-      if(user.answer1 == 'Vampire') q1_a2++;
-      if(user.answer1 == 'Werewolf') q1_a3++;
-  script var q1_a1 = #{q1_a1}
-  script var q1_a2 = #{q1_a2}
-  script var q1_a3 = #{q1_a3}
-  script(src='./routes/drawGraph.js')
+      else if(user.answer1 == 'Vampire') q1_a2++;
+      else if(user.answer1 == 'Werewolf') q1_a3++;
+      if(user.answer2=='Zombie') q2_a1++;
+      else if(user.answer2 == 'Vampire') q2_a2++;
+      else if(user.answer2 == 'Werewolf') q2_a3++;
+      if(user.answer3=='Zombie') q3_a1++;
+      else if(user.answer3 == 'Vampire') q3_a2++;
+      else if(user.answer3 == 'Werewolf') q3_a3++;
+      userCount++;
+
+          
+    script var q1_a1 = #{q1_a1}
+    script var q1_a2 = #{q1_a2}
+    script var q1_a3 = #{q1_a3}
+    script var q2_a1 = #{q2_a1}
+    script var q2_a2 = #{q2_a2}
+    script var q2_a3 = #{q2_a3}
+    script var q3_a1 = #{q3_a1}
+    script var q3_a2 = #{q3_a2}
+    script var q3_a3 = #{q3_a3}
+    script var userCount = #{userCount}
+  canvas(title=`Question Breakdown`,id='myCanvas', width='500', height='315', style='border:1px solid #000; background-color: #eee')
   p
     a(href='/login') Login
   p
-    a(href='/create') Create User
+    a(href='/create') Create user
   p
     a(href='/logout') Logout
+  script(src="/drawGraph.js")
